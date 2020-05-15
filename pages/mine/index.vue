@@ -1,12 +1,11 @@
 <template>
 	<view class="content">
 		<view class="top-part">
-			<image class="header" src="../../static/icon_user@2x.png"></image>
 			<image class="header" :src="userInfo.head_ico ? `${url_base_image}/${userInfo.head_ico}` : '/static/icon_user@2x.png'"></image>
-			<view class="name">昵称：{{ userInfo.remain_balance | fill }}</view>
-			<view class="mobile">姓名：{{ userInfo.remain_balance | fill }}</view>
-			<view class="mobile">手机号：{{ userInfo.remain_balance | fill }}</view>
-			<view class="mobile">身份证号：{{ userInfo.remain_balance | fill }}</view>
+			<view class="name">昵称：{{ userInfo.name | fill }}</view>
+			<view class="mobile">姓名：{{ userInfo.true_name | fill }}</view>
+			<view class="mobile">手机号：{{ userInfo.mobile | fill }}</view>
+			<view class="mobile">身份证号：{{ userInfo.id_num | fill }}</view>
 		</view>
 
 		<view class="nav-list">
@@ -32,6 +31,7 @@
 	export default {
 		data() {
 			return {
+				url_base_image,
 				elements: [{
 						color: 'green',
 						title: '账号列表',

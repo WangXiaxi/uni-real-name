@@ -67,6 +67,7 @@
 		computed: {},
 		methods: {
 			...mapMutations(['login']),
+			...mapActions(['getUserInfo']),
 			navTo(url, type = true) {
 				uni.navigateTo({
 					url
@@ -83,10 +84,12 @@
 				if (!ApiModel.WxValidate.checkForm(formData)) return
 				this.loading = true
 				ApiModel.login(formData).then(result => {
-					this.login({
-						callback: () => {
-							this.loading = false
-						}
+					this.login(result.data.userToken)
+					this.getUserInfo().then(res => {
+						this.loading = false
+						uni.redirectTo({
+							url: '/pages/mine/index'
+						})
 					})
 				}).catch(() => {
 					this.loading = false

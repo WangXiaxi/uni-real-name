@@ -63,10 +63,10 @@
 					messages,
 					loading
 				} = this
-				ApiModel.initValidate(rules, messages)
-				if (!ApiModel.WxValidate.checkForm(formData)) return
+				apiModel.initValidate(rules, messages)
+				if (!apiModel.WxValidate.checkForm(formData)) return
 				this.loading = true
-				ApiModel.bindIDNum(formData).then(result => {
+				apiModel.bindIDNum(formData).then(result => {
 					Object.assign(this.formData, formFields)
 					this.$api.msg('绑定成功！')
 				}).catch(() => {

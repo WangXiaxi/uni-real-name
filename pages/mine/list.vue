@@ -2,7 +2,7 @@
 	<view class="content">
 		<empty v-if="loadingType === 'nomore' && list.length === 0" text="暂无相关记录"></empty>
 		<view v-else>
-			<view class="item red" v-for="(item, index) in list" :key="key">
+			<view class="item red" v-for="(item, index) in list" :key="index">
 				<image class="header" src="../../static/icon_user@2x.png"></image>
 				<view class="info">
 					<view class="name">{{ item.remain_balance | fill }}</view>
@@ -31,10 +31,17 @@
 		},
 		data() {
 			return {
-				list: [{}, {}, {}],
+				list: [],
 				page: 0,
 				pages: 0, // 总页数
 				loadingType: 'more' //加载更多状态
+			}
+		},
+		// #ifndef MP
+		onNavigationBarButtonTap(e) {
+			const index = e.index;
+			if (index === 0) {
+				this.navTo('/pages/mine/add');
 			}
 		},
 		computed: {
@@ -53,6 +60,11 @@
 		},
 		methods: {
 			...mapActions(['goLogin']),
+			navTo(url) {
+				uni.navigateTo({
+					url
+				})
+			},
 			dele(id) {
 				uni.showLoading({
 					title: '请求中...',
