@@ -15,16 +15,16 @@ class ApiModel extends Request {
 		return this.post('/service/userToken', params)
 	}
 	// 绑定
-	bindIDNum() {
-		return this.get('/service/bindIDNum', {})
+	bindIDNum(params) {
+		return this.post('/service/bindIDNum', params)
 	}
 	// 列表
-	getBoundMembersList() {
-		return this.get('/service/getBoundMembersList', {})
+	getBoundMembersList(params) {
+		return this.get('/service/getBoundMembersList', params)
 	}
-	// 列表
-	editBoundUser() {
-		return this.get('/service/editBoundUser', {})
+	// 删除
+	editBoundUser(params) {
+		return this.post('/service/editBoundUser', params)
 	}
 	// 获取用户信息
 	getMainUserInfo() {
