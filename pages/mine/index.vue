@@ -2,8 +2,8 @@
 	<view class="content">
 		<view class="top-part">
 			<image class="header" :src="userInfo.head_ico ? `${url_base_image}/${userInfo.head_ico}` : '/static/icon_user@2x.png'"></image>
-			<view class="name">昵称：{{ userInfo.name | fill }}</view>
-			<view class="mobile">姓名：{{ userInfo.true_name | fill }}</view>
+			<view class="name">用户名：{{ userInfo.username | fill }}</view>
+			<view class="mobile">姓名：{{ userInfo.name | fill }}</view>
 			<view class="mobile">手机号：{{ userInfo.mobile | fill }}</view>
 			<view class="mobile">身份证号：{{ userInfo.id_num | fill }}</view>
 		</view>
