@@ -5,7 +5,7 @@
 			<view class="item red" v-for="(item, index) in list" :key="index">
 				<image class="header" src="../../static/icon_user@2x.png"></image>
 				<view class="info">
-					<view class="name">{{ item.name | fill }}</view>
+					<view class="name">{{ item.username | fill }}</view>
 					<view class="phone">{{ item.mobile | fill }}</view>
 					<view class="phone" v-if="item.status === '2' && item.check_response" style="padding-right: 30rpx;">拒绝原因：{{item.check_response}}</view>
 				</view>
