@@ -67,6 +67,7 @@
 				if (!apiModel.WxValidate.checkForm(formData)) return
 				this.loading = true
 				apiModel.bindIDNum(formData).then(result => {
+					this.loading = false
 					Object.assign(this.formData, formFields)
 					this.$api.msg('绑定成功！')
 				}).catch(() => {

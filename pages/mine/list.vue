@@ -5,10 +5,13 @@
 			<view class="item red" v-for="(item, index) in list" :key="index">
 				<image class="header" src="../../static/icon_user@2x.png"></image>
 				<view class="info">
-					<view class="name">{{ item.remain_balance | fill }}</view>
-					<view class="phone">{{ item.remain_balance | fill }}</view>
+					<view class="name">{{ item.name | fill }}</view>
+					<view class="phone">{{ item.mobile | fill }}</view>
+					<view class="phone" v-if="item.status === '2' && item.check_response" style="padding-right: 30rpx;">拒绝原因：{{item.check_response}}</view>
 				</view>
-				<view class="type red">{{ item.remain_balance | fill }}</view>
+				<view class="type red" v-if="item.status === '2'">审核拒绝</view>
+				<view class="type green" v-if="item.status === '1'">审核通过</view>
+				<view class="type yellow" v-if="item.status === '0'">审核中</view>
 				<image class="dele" src="../../static/dele.png" @click="dele(item.id)"></image>
 			</view>
 	
@@ -37,7 +40,6 @@
 				loadingType: 'more' //加载更多状态
 			}
 		},
-		// #ifndef MP
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
 			if (index === 0) {
@@ -66,17 +68,25 @@
 				})
 			},
 			dele(id) {
-				uni.showLoading({
-					title: '请求中...',
-					mask: true
+				uni.showModal({
+					title: '提示',
+					content: `确定删除当前绑定账号吗？`,
+					success: async (ress) => {
+						if (!ress.confirm) return
+						uni.showLoading({
+							title: '请求中...',
+							mask: true
+						})
+						apiModel.editBoundUser({
+							boundID: id
+						}).then(res => {
+							uni.hideLoading()
+							this.$api.msg('删除成功！')
+							this.loadData('refresh')
+						})
+					}
 				})
-				apiModel.editBoundUser({
-					boundID: id
-				}).then(res => {
-					uni.hideLoading()
-					this.$api.msg('删除成功！')
-					this.loadData('refresh')
-				})
+				
 			},
 			loadData(type = 'add', loading) {
 				if (this.loadingType === 'loading' && type !== 'refresh') return // 有数据在加载时 不进行请求
@@ -97,7 +107,8 @@
 				}
 				apiModel.getBoundMembersList({
 					page: this.page,
-					limit: 10
+					limit: 10,
+					paging: true
 				}).then(res => {
 					if (!res.data.data) {
 						res.data.data = []
@@ -168,6 +179,9 @@
 			}
 			&.green {
 				color: #67C23A;
+			}
+			&.yellow {
+				color: orange;
 			}
 		}
 	}
