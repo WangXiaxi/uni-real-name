@@ -1,0 +1,71 @@
+/* eslint-disable */
+var provinceData = [{
+	"label": "北京"
+}, {
+	"label": "上海"
+}, {
+	"label": "天津"
+}, {
+	"label": "重庆"
+}, {
+	"label": "河北"
+}, {
+	"label": "山西"
+}, {
+	"label": "河南"
+}, {
+	"label": "辽宁"
+}, {
+	"label": "吉林"
+}, {
+	"label": "黑龙江"
+}, {
+	"label": "内蒙古"
+}, {
+	"label": "江苏"
+}, {
+	"label": "山东"
+}, {
+	"label": "安徽"
+}, {
+	"label": "浙江"
+}, {
+	"label": "福建"
+}, {
+	"label": "湖北"
+}, {
+	"label": "湖南"
+}, {
+	"label": "广东"
+}, {
+	"label": "广西"
+}, {
+	"label": "江西"
+}, {
+	"label": "四川"
+}, {
+	"label": "海南"
+}, {
+	"label": "贵州"
+}, {
+	"label": "云南"
+}, {
+	"label": "西藏"
+}, {
+	"label": "陕西"
+}, {
+	"label": "甘肃"
+}, {
+	"label": "青海"
+}, {
+	"label": "宁夏"
+}, {
+	"label": "新疆"
+}, {
+	"label": "台湾"
+}, {
+	"label": "钓鱼岛"
+}, {
+	"label": "港澳"
+}]
+export default provinceData;

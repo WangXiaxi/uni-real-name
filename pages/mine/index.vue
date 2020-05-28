@@ -9,7 +9,8 @@
 		</view>
 
 		<view class="nav-list">
-			<view hover-class="none" class="nav-li" @click="navTo(item.url)" :class="'bg-'+item.color" v-for="(item,index) in elements" :key="index">
+			<view hover-class="none" class="nav-li" @click="navTo(item.url)" :class="'bg-'+item.color" v-for="(item,index) in elements"
+			 :key="index">
 				<view class="nav-title">{{item.title}}</view>
 				<view class="nav-name">{{item.name}}</view>
 				<text :class="'cuIcon-' + item.cuIcon"></text>
@@ -53,13 +54,19 @@
 				]
 			}
 		},
-	computed: {
-		...mapGetters(['userInfo'])
-	},
-		onLoad() {
-			this.goLogin()
+		computed: {
+			...mapGetters(['userInfo'])
 		},
-		
+		onLoad() {
+			this.goLogin(() => {
+				if (!userInfo.card_num) {
+					uni.redirectTo({
+						url: '/pages/mine/index'
+					})
+				}
+			})
+		},
+
 		methods: {
 			...mapActions(['goLogin']),
 			...mapMutations(['logout']),

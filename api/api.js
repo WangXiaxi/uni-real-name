@@ -34,6 +34,14 @@ class ApiModel extends Request {
 	getCaptcha() {
 		return getCaptcha('getCaptcha')
 	}
+	// 获取验证码接口
+	getCallCode(params) {
+		return this.get('/service/getCallMobileCode', { ...params, noToken: true })
+	}
+	// 绑定
+	bindCardInfo(params) {
+		return this.post('/service/bindCardInfo', params)
+	}
 	/**
 	 * 验证表单
 	 */
