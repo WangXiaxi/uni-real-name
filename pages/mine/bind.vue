@@ -9,7 +9,7 @@
 			<text class="tit">身份证</text>
 			<view class="input">{{ userInfo.id_num | fill }}</view>
 		</view>
-
+		
 		<view class="row b-b" style="margin-top: 30upx;">
 			<text class="tit">开户银行</text>
 			<input class="input" type="text" v-model="formData.bank" placeholder="请输入开户银行" placeholder-class="placeholder" />
@@ -32,7 +32,7 @@
 			<text class="tit">银行卡号</text>
 			<input class="input" type="number" v-model="formData.card_num" placeholder="请输入银行卡号" placeholder-class="placeholder" />
 		</view>
-
+		
 		<view class="row b-b">
 			<text class="tit">手机号</text>
 			<input class="input" type="number" v-model="formData.mobile" placeholder="请输入手机号" placeholder-class="placeholder" />
@@ -45,7 +45,9 @@
 		</view>
 
 		<button class="add-btn" :loading="btnLoading" :disabled="btnLoading" @click="confirm">提交</button>
-
+		<view class="tip"><text>1.</text>&nbsp;银行卡信息必须填写完整准确；</view>
+		<view class="tip"><text>2.</text>&nbsp;绑定的必须是本人的银行卡；</view>
+		<view class="tip"><text>3.</text>银行卡信息填写不正确会导致绑定失败。</view>
 		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValue" @onCancel="onCancel"
 		 @onConfirm="onConfirm"></mpvue-city-picker>
 	</view>
@@ -92,10 +94,6 @@
 					code: []
 				},
 				rules: {
-					mobile: {
-						required: true,
-						tel: true
-					},
 					bank: {
 						required: true
 					},
@@ -107,6 +105,10 @@
 					},
 					area: {
 						required: true
+					},
+					mobile: {
+						required: true,
+						tel: true
 					}
 				},
 				messages: {
@@ -132,7 +134,14 @@
 			...mapGetters(['userInfo'])
 		},
 		onLoad() {
-			this.goLogin()
+			this.goLogin(() => {
+				if (this.userInfo.card_num) {
+					uni.redirectTo({
+						url: '/pages/mine/index'
+					})
+					return
+				}
+			})
 		},
 		onBackPress() {
 			if (this.$refs.mpvueCityPicker.showPicker) {
@@ -146,7 +155,7 @@
 			}
 		},
 		methods: {
-			...mapActions(['goLogin']),
+			...mapActions(['goLogin', 'getUserInfo']),
 			// 发送验证码
 			sendCode() {
 				const {
@@ -225,25 +234,26 @@
 					area,
 					mobile
 				}
-				console.log(mobile_code)
 				apiModel.initValidate(rules, messages)
+				if (!apiModel.WxValidate.checkForm(sendData)) return
 				if (mobile !== this.mobile) return this.$api.msg('手机与验证码不匹配请重新获取！')
 				if (!mobile_code || mobile_code != this.code) return this.$api.msg('短信验证码不正确！')
-				if (!apiModel.WxValidate.checkForm(sendData)) return
 				if (!CheckBankNo(card_num)) return this.$api.msg('请检查银行卡输入是否正确！')
 
 				uni.showModal({
 					title: '提示',
 					content: '提交成功后不能修改，确认提交吗？',
-					success: function(res) {
+					success: (res) => {
 						if (res.confirm) {
 							this.btnLoading = true
 							apiModel.bindCardInfo(sendData).then(res => {
 								this.$api.msg(`完善信息成功！`);
 								setTimeout(() => {
-									this.btnLoading = false
-									uni.redirectTo({
-										url: '/pages/mine/index'
+									this.getUserInfo().then(res => {
+										this.btnLoading = false
+										uni.redirectTo({
+											url: '/pages/mine/index'
+										})
 									})
 								}, 1500)
 							}).catch(() => {
@@ -258,6 +268,15 @@
 </script>
 
 <style lang="scss">
+	.tip {
+		padding-left: 30upx;
+		font-size: 24upx;
+		color: #999999;
+		margin-bottom: 10upx;
+		text {
+			color: $base-color;
+		}
+	}
 	.code-btn {
 		height: 64upx;
 		line-height: 60upx;
@@ -325,7 +344,7 @@
 		justify-content: center;
 		width: 690upx;
 		height: 80upx;
-		margin: 60upx auto;
+		margin: 60upx auto 20upx;
 		font-size: $font-lg;
 		color: #fff;
 		background-color: #1890FF;
