@@ -133,6 +133,13 @@
 		computed: {
 			...mapGetters(['userInfo'])
 		},
+		onNavigationBarButtonTap(e) {
+			const index = e.index;
+			if (index === 0) {
+				this.logout()
+				this.goLogin()
+			}
+		},
 		onLoad() {
 			this.goLogin(() => {
 				if (this.userInfo.card_num) {
@@ -156,6 +163,7 @@
 		},
 		methods: {
 			...mapActions(['goLogin', 'getUserInfo']),
+			...mapMutations(['logout']),
 			// 发送验证码
 			sendCode() {
 				const {
