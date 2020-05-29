@@ -1,5 +1,10 @@
 <template>
 	<view class="content">
+		
+		<view class="tip"><text>1.</text>&nbsp;银行卡信息必须填写完整准确；</view>
+		<view class="tip"><text>2.</text>&nbsp;绑定的必须是本人的银行卡；</view>
+		<view class="tip"><text>3.</text>&nbsp;一个银行卡、手机号只能绑定一次；</view>
+		
 		<view class="row b-b b-t">
 			<text class="tit">姓名</text>
 			<view class="input">{{ userInfo.name | fill }}</view>
@@ -45,9 +50,7 @@
 		</view>
 
 		<button class="add-btn" :loading="btnLoading" :disabled="btnLoading" @click="confirm">提交</button>
-		<view class="tip"><text>1.</text>&nbsp;银行卡信息必须填写完整准确；</view>
-		<view class="tip"><text>2.</text>&nbsp;绑定的必须是本人的银行卡；</view>
-		<view class="tip"><text>3.</text>银行卡信息填写不正确会导致绑定失败。</view>
+		
 		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValue" @onCancel="onCancel"
 		 @onConfirm="onConfirm"></mpvue-city-picker>
 	</view>
@@ -60,7 +63,8 @@
 	} from '../../utils/isBankCard.js'
 	import {
 		mapActions,
-		mapGetters
+		mapGetters,
+		mapMutations
 	} from 'vuex'
 
 	import mpvueCityPicker from '@/components/ydui-citypicker/mpvueCityPicker.vue'

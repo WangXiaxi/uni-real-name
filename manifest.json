@@ -2,8 +2,8 @@
     "name" : "uni-real-name",
     "appid" : "__UNI__C9E1316",
     "description" : "",
-    "versionName" : "1.0.0",
-    "versionCode" : "100",
+    "versionName" : "1.2.0",
+    "versionCode" : 120,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -72,41 +72,39 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-		"h5" :
-		{
-			"devServer" : 
-			{
-				"disableHostCheck" : true,
-				"proxy" : 
-				{
-					"/service" : 
-					{
-						// "target" : "http://localhost:12306",
-						"target" : "http://test.hzyh.ehanone.com",
-						"changeOrigin" : true,
-						"secure" : false
-					},
-					"/anyCall" : 
-					{
-						// "target" : "http://localhost:12306",
-						"target" : "http://test.hzyh.ehanone.com",
-						"changeOrigin" : true,
-						"secure" : false
-					},
-					"/public" : 
-					{
-						// "target" : "http://localhost:12306",
-						"target" : "http://test.hzyh.ehanone.com",
-						"changeOrigin" : true,
-						"secure" : false
-					}
-				}
-			},
-			"title" : "忆杭网",
-			"router" : 
-			{
-				"mode" : "history"
-			},
-			"domain" : "http://h5.hzyh.ehanone.com/"
-		}
+    "h5" : {
+        "devServer" : {
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/service" : {
+                    "target" : "http://localhost:12306",
+                    // "target" : "http://test.hzyh.ehanone.com",
+                    "changeOrigin" : true,
+                    "secure" : false
+                },
+                "/anyCall" : {
+                    // "target" : "http://localhost:12306",
+                    "target" : "http://test.hzyh.ehanone.com",
+                    "changeOrigin" : true,
+                    "secure" : false
+                },
+                "/public" : {
+                    // "target" : "http://localhost:12306",
+                    "target" : "http://test.hzyh.ehanone.com",
+                    "changeOrigin" : true,
+                    "secure" : false
+                }
+            }
+        },
+        "title" : "忆杭网",
+        "router" : {
+            "mode" : "history"
+        },
+        "domain" : "http://h5.hzyh.ehanone.com/",
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        }
+    }
 }
