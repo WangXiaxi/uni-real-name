@@ -59,16 +59,18 @@
 		},
 		onLoad() {
 			this.goLogin(() => {
-				if (!this.userInfo.card_num) {
-					uni.redirectTo({
-						url: '/pages/mine/bind'
-					})
-				}
+				this.getUserInfo().then(res => {
+					if (!this.userInfo.card_num) {
+						uni.redirectTo({
+							url: '/pages/mine/bind'
+						})
+					}
+				})
 			})
 		},
 
 		methods: {
-			...mapActions(['goLogin']),
+			...mapActions(['goLogin', 'getUserInfo']),
 			...mapMutations(['logout']),
 			navTo(url) {
 				if (url === 'goOut') {
