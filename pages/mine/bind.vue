@@ -95,7 +95,7 @@
 					mobile: {
 						required: true,
 						tel: true
-					}, 
+					},
 					bank: {
 						required: true
 					},
@@ -173,7 +173,7 @@
 				apiModel.getCallCode(sendData).then(res => {
 					this.code = res.data.json
 					this.$api.msg('短信发送成功！')
-					this.mobile  = sendData.mobile
+					this.mobile = sendData.mobile
 					this.timeAction()
 				}).catch(() => {
 					this.sending = false
@@ -231,18 +231,26 @@
 				if (!mobile_code || mobile_code != this.code) return this.$api.msg('短信验证码不正确！')
 				if (!apiModel.WxValidate.checkForm(sendData)) return
 				if (!CheckBankNo(card_num)) return this.$api.msg('请检查银行卡输入是否正确！')
-				this.btnLoading = true
-				apiModel.bindCardInfo(sendData).then(res => {
-					this.$api.msg(`完善信息成功！`);
-					
-					setTimeout(() => {
-						this.btnLoading = false
-						uni.redirectTo({
-							url: '/pages/mine/index'
-						})
-					}, 1500)
-				}).catch(() => {
-					this.btnLoading = false
+
+				uni.showModal({
+					title: '提示',
+					content: '提交成功后不能修改，确认提交吗？',
+					success: function(res) {
+						if (res.confirm) {
+							this.btnLoading = true
+							apiModel.bindCardInfo(sendData).then(res => {
+								this.$api.msg(`完善信息成功！`);
+								setTimeout(() => {
+									this.btnLoading = false
+									uni.redirectTo({
+										url: '/pages/mine/index'
+									})
+								}, 1500)
+							}).catch(() => {
+								this.btnLoading = false
+							})
+						}
+					}
 				})
 			},
 		}

@@ -59,9 +59,9 @@
 		},
 		onLoad() {
 			this.goLogin(() => {
-				if (!userInfo.card_num) {
+				if (!this.userInfo.card_num) {
 					uni.redirectTo({
-						url: '/pages/mine/index'
+						url: '/pages/mine/bind'
 					})
 				}
 			})
