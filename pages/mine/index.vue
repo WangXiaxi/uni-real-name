@@ -46,6 +46,12 @@
 						url: '/pages/mine/add'
 					},
 					{
+						color: 'yellow',
+						title: '完善信息',
+						name: 'Information',
+						url: '/pages/mine/bind'
+					},
+					{
 						color: 'cyan',
 						title: '退出登录',
 						name: 'Sign Out',
@@ -137,6 +143,10 @@
 
 	.bg-red {
 		background-color: #e54d42;
+		color: #ffffff;
+	}
+	.bg-yellow {
+		background-color: orange;
 		color: #ffffff;
 	}
 
