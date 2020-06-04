@@ -84,6 +84,10 @@
 					this.goLogin()
 					return
 				}
+				if (url === '/pages/mine/bind' && this.userInfo.card_num) {
+					this.$api.msg('您已经完善过信息！')
+					return
+				}
 				uni.navigateTo({
 					url
 				})

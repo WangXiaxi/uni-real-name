@@ -49,7 +49,7 @@
 			<button class="code-btn" :disabled="sending" @click="sendCode">{{sendMessage}}</button>
 		</view>
 
-		<button class="add-btn" :loading="btnLoading" :disabled="btnLoading" @click="confirm">提交</button>
+		<button class="add-btn" :loading="btnLoading" :disabled="btnLoading || !!userInfo.card_num" @click="confirm">提交</button>
 		
 		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValue" @onCancel="onCancel"
 		 @onConfirm="onConfirm"></mpvue-city-picker>
@@ -145,23 +145,23 @@
 			}
 		},
 		onLoad() {
-			this.goLogin(() => {
-				if (this.userInfo.card_num) {
-					uni.redirectTo({
-						url: '/pages/mine/index'
-					})
-					return
-				}
-			})
+			// this.goLogin(() => {
+			// 	if (this.userInfo.card_num) {
+			// 		uni.redirectTo({
+			// 			url: '/pages/mine/index'
+			// 		})
+			// 		return
+			// 	}
+			// })
 		},
 		onBackPress() {
-			if (this.$refs.mpvueCityPicker.showPicker) {
+			if (this.$refs.mpvueCityPicker && this.$refs.mpvueCityPicker.showPicker) {
 				this.$refs.mpvueCityPicker.pickerCancel();
 				return true;
 			}
 		},
 		onUnload() {
-			if (this.$refs.mpvueCityPicker.showPicker) {
+			if (this.$refs.mpvueCityPicker && this.$refs.mpvueCityPicker.showPicker) {
 				this.$refs.mpvueCityPicker.pickerCancel()
 			}
 		},
