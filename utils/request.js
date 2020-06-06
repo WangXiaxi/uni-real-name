@@ -111,8 +111,7 @@ export default class Request {
 						case 'token30401':
 							// 清空数据并跳转至登陆页
 							store.commit('logout')
-							store.commit('clearOut')
-							if (!options.noredirect) uni.switchTab({
+							if (!options.noredirect) uni.redirectTo({
 								url: '/pages/public/login'
 							})
 							reject(response)
