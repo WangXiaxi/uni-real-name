@@ -5,18 +5,21 @@
 			<view class="title">welcome</view>
 			<view class="item">
 				<image class="left-ico" src="../../static/user.png"></image>
-				<input type="text" v-model.trim="formData.loginInfo" class="" name="loginInfo" placeholder="请输入用户名" placeholder-class="placeholder" />
+				<input type="text" v-model="formData.loginInfo" class="" name="loginInfo" placeholder="请输入用户名" placeholder-class="placeholder" />
 			</view>
 			<view class="item">
 				<image class="left-ico" src="../../static/idcard.png"></image>
-				<input type="text" v-model.trim="formData.idNum" class="" name="idNum" placeholder="请输入身份证号" placeholder-class="placeholder" />
+				<input type="text" v-model="formData.idNum" class="" name="idNum" placeholder="请输入身份证号" placeholder-class="placeholder" />
 			</view>
 			<view class="item">
 				<image class="left-ico" src="../../static/password.png"></image>
-				<input type="password" v-model.trim="formData.password" class="" name="password" placeholder="请输入密码"
+				<input type="password" v-model="formData.password" class="" name="password" placeholder="请输入密码"
 				 placeholder-class="placeholder" />
 			</view>
 			<button type="primary" class="no-border confirm-btn" @click="confirm" :loading="loading" :disabled="loading">登录</button>
+		</view>
+		<view class="tips">
+			<text>提示：仅供杭州忆杭网平台用户使用，请使用忆杭网平台账号进行登录。</text>
 		</view>
 	</view>
 </template>
@@ -155,6 +158,21 @@
 			line-height: 1;
 			height: 96rpx;
 			color: #74C3CA;
+		}
+	}
+	.tips {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		
+		text {
+			position: absolute;
+			bottom: 0;
+			padding: 32rpx;
+			color: #eef8f8;
+			font-size: 24rpx;
 		}
 	}
 </style>

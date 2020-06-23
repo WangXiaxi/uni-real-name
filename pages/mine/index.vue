@@ -7,7 +7,7 @@
 			<view class="mobile">手机号：{{ userInfo.mobile | fill }}</view>
 			<view class="mobile">身份证号：{{ userInfo.id_num | fill }}</view>
 		</view>
-
+		
 		<view class="nav-list">
 			<view hover-class="none" class="nav-li" @click="navTo(item.url)" :class="'bg-'+item.color" v-for="(item,index) in elements"
 			 :key="index">
@@ -17,6 +17,9 @@
 			</view>
 		</view>
 
+		<!-- #ifdef MP-WEIXIN -->
+		<official-account></official-account>
+		<!-- #endif -->
 	</view>
 </template>
 
